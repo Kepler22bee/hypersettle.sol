@@ -1,0 +1,21 @@
+{
+  "name": "@hypersettle/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HyperSettle client SDK — drives the Solana hub, EVM spokes, and Solana spoke.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "demo": "tsx demo/end-to-end.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  }
+}

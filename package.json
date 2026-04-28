@@ -1,0 +1,18 @@
+{
+  "name": "hypersettle-sol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HyperSettle: FHE netting hub on Solana (Encrypt + Ika) with EVM and Solana spokes.",
+  "scripts": {
+    "hub:build": "pnpm --filter ./packages/hub exec anchor build",
+    "hub:test": "pnpm --filter ./packages/hub exec anchor test",
+    "spoke:sol:build": "pnpm --filter ./packages/solana-spoke exec anchor build",
+    "spoke:sol:test": "pnpm --filter ./packages/solana-spoke exec anchor test",
+    "spoke:evm:build": "forge build --root packages/evm-spoke",
+    "spoke:evm:test": "forge test --root packages/evm-spoke",
+    "sdk:build": "pnpm --filter ./packages/sdk build",
+    "demo": "pnpm --filter ./packages/sdk demo",
+    "frontend:dev": "pnpm --filter ./packages/frontend dev",
+    "frontend:build": "pnpm --filter ./packages/frontend build"
+  }
+}

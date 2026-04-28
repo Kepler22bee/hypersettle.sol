@@ -1,0 +1,33 @@
+[package]
+name = "hypersettle-hub"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "hypersettle_hub"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+
+[dependencies]
+anchor-lang = { version = "1", features = ["init-if-needed"] }
+encrypt-anchor = { git = "https://github.com/dwallet-labs/encrypt-pre-alpha", branch = "main" }
+encrypt-dsl = { package = "encrypt-solana-dsl", git = "https://github.com/dwallet-labs/encrypt-pre-alpha", branch = "main" }
+encrypt-types = { git = "https://github.com/dwallet-labs/encrypt-pre-alpha", branch = "main", default-features = false }
+ika-dwallet-anchor = { git = "https://github.com/dwallet-labs/ika-pre-alpha", branch = "main" }
+solana-program = "3"
+
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }

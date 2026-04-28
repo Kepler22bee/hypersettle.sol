@@ -1,0 +1,31 @@
+# Node
+node_modules/
+.pnpm-store/
+*.log
+.DS_Store
+
+# Rust / Anchor
+target/
+Cargo.lock
+
+# Anchor
+.anchor/
+**/test-ledger/
+
+# Foundry
+out/
+cache/
+broadcast/
+
+# Next.js / SDK builds
+.next/
+dist/
+
+# Editor
+.vscode/
+.idea/
+
+# Env
+.env
+.env.local
+.env.*.local

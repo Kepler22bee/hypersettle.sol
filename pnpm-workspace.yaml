@@ -1,0 +1,5 @@
+packages:
+  - "packages/sdk"
+  - "packages/hub"
+  - "packages/solana-spoke"
+  - "packages/frontend"

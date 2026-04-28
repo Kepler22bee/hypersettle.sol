@@ -1,0 +1,28 @@
+{
+  "name": "@hypersettle/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HyperSettle UI — connect wallet, build encrypted deposit/invoice intents, sign settlements with a mock Ika dWallet, and inspect the cross-chain wire format byte-by-byte.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hypersettle/sdk": "workspace:*",
+    "@rainbow-me/rainbowkit": "^2.2.0",
+    "@tanstack/react-query": "^5.59.0",
+    "next": "^15.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "viem": "^2.21.0",
+    "wagmi": "^2.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.4.0"
+  }
+}
