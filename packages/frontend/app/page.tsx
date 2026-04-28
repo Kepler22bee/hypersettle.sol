@@ -4,6 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { DepositCard } from "../components/DepositCard";
 import { InvoiceCard } from "../components/InvoiceCard";
 import { SettlementCard } from "../components/SettlementCard";
+import { IkaPanel } from "../components/IkaPanel";
 
 export default function Home() {
   return (
@@ -33,8 +34,9 @@ export default function Home() {
         <InvoiceCard />
       </div>
 
-      <div style={{ marginTop: 20 }}>
+      <div className="grid" style={{ marginTop: 20 }}>
         <SettlementCard />
+        <IkaPanel />
       </div>
 
       <footer>
