@@ -18,13 +18,52 @@ export interface DKGResult {
   publicKey: Uint8Array;
 }
 
+export type IkaCurve = "Curve25519" | "Secp256k1" | "Secp256r1" | "Ristretto";
+export type IkaSignatureAlgorithm = "EdDSA" | "ECDSASecp256k1" | "ECDSASecp256r1" | "Taproot";
+
+const DEFAULT_ALG_FOR_CURVE: Record<IkaCurve, IkaSignatureAlgorithm> = {
+  Curve25519: "EdDSA",
+  Secp256k1: "ECDSASecp256k1",
+  Secp256r1: "ECDSASecp256r1",
+  Ristretto: "EdDSA",
+};
+
 export interface IkaDWalletWebClient {
-  requestDKG(senderPubkey: Uint8Array): Promise<DKGResult>;
-  requestPresign(senderPubkey: Uint8Array, dwalletAddr: Uint8Array): Promise<Uint8Array>;
+  requestDKG(senderPubkey: Uint8Array, curve?: IkaCurve): Promise<DKGResult>;
+  requestPresign(
+    senderPubkey: Uint8Array,
+    dwalletAddr: Uint8Array,
+    curve?: IkaCurve,
+  ): Promise<Uint8Array>;
   requestSign(
     senderPubkey: Uint8Array, dwalletAddr: Uint8Array,
     message: Uint8Array, presignId: Uint8Array, txSignature: Uint8Array,
   ): Promise<Uint8Array>;
+}
+
+// BCS's EnumInputShape requires all variants present; the active one set true,
+// the rest null. Cast to `any` because the enum types are anonymous in the BCS
+// schema and not re-exported by the upstream client.
+function curveTag(c: IkaCurve): any {
+  const out: Record<IkaCurve, boolean | null> = {
+    Curve25519: null,
+    Secp256k1: null,
+    Secp256r1: null,
+    Ristretto: null,
+  };
+  out[c] = true;
+  return out;
+}
+function algTag(a: IkaSignatureAlgorithm): any {
+  const out: Record<IkaSignatureAlgorithm | "SchnorrkelSubstrate", boolean | null> = {
+    EdDSA: null,
+    ECDSASecp256k1: null,
+    ECDSASecp256r1: null,
+    Taproot: null,
+    SchnorrkelSubstrate: null,
+  };
+  out[a] = true;
+  return out;
 }
 
 export function createIkaWebClient(baseUrl: string): IkaDWalletWebClient {
@@ -46,14 +85,14 @@ export function createIkaWebClient(baseUrl: string): IkaDWalletWebClient {
   }
 
   return {
-    async requestDKG(senderPubkey) {
+    async requestDKG(senderPubkey, curve: IkaCurve = "Curve25519") {
       const data = SignedRequestData.serialize({
         session_identifier_preimage: Array.from(new Uint8Array(32)),
         epoch: 1n, chain_id: { Solana: true },
         intended_chain_sender: Array.from(senderPubkey),
         request: { DKG: {
           dwallet_network_encryption_public_key: Array.from(new Uint8Array(32)),
-          curve: { Curve25519: true },
+          curve: curveTag(curve),
           centralized_public_key_share_and_proof: Array.from(new Uint8Array(32)),
           user_secret_key_share: { Encrypted: {
             encrypted_centralized_secret_share_and_proof: Array.from(new Uint8Array(32)),
@@ -83,7 +122,7 @@ export function createIkaWebClient(baseUrl: string): IkaDWalletWebClient {
       };
     },
 
-    async requestPresign(senderPubkey, dwalletAddr) {
+    async requestPresign(senderPubkey, dwalletAddr, curve: IkaCurve = "Curve25519") {
       const data = SignedRequestData.serialize({
         session_identifier_preimage: Array.from(dwalletAddr),
         epoch: 1n, chain_id: { Solana: true },
@@ -97,8 +136,8 @@ export function createIkaWebClient(baseUrl: string): IkaDWalletWebClient {
             network_pubkey: Array.from(new Uint8Array(32)),
             epoch: 1n,
           },
-          curve: { Curve25519: true },
-          signature_algorithm: { EdDSA: true },
+          curve: curveTag(curve),
+          signature_algorithm: algTag(DEFAULT_ALG_FOR_CURVE[curve]),
         }},
       }).toBytes();
 
