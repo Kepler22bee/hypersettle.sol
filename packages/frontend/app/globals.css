@@ -30,12 +30,41 @@ main {
 }
 
 header.app-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding-bottom: 24px;
+  gap: 28px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 32px;
+}
+header.app-header .brand h1 { margin: 0; }
+header.app-header .nav { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+header.app-header .connect { justify-self: end; }
+
+@media (max-width: 860px) {
+  header.app-header {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  header.app-header .nav { justify-content: flex-start; }
+  header.app-header .connect { justify-self: start; }
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  transition: all 0.12s ease;
+}
+.nav-link:hover { color: var(--text); background: var(--panel); text-decoration: none; }
+.nav-link.active {
+  color: var(--text);
+  background: var(--accent-soft);
+  border-color: var(--accent);
 }
 
 h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }

@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { keccak256, toBytes } from "viem";
 import nacl from "tweetnacl";
+import { useWallet } from "@solana/wallet-adapter-react";
 import {
   packSettlementOrder,
   type SettlementOrder,
 } from "@hypersettle/sdk";
-import { fill32, paddedAddr, toHex, randomCt } from "../lib/bytes";
+import { fill32, toHex } from "../lib/bytes";
 import { createIkaWebClient } from "../lib/ika/grpc-web";
 
 const IKA_ENDPOINT =
@@ -34,10 +35,10 @@ export function IkaPanel() {
   const [amount, setAmount] = useState("1000000");
   const [nonce, setNonce] = useState("1");
 
-  // Stand-in for the user's Solana wallet pubkey. In a real flow this is
-  // the connected Phantom/Backpack pubkey. For demo we use a fixed value
-  // so DKG produces a deterministic intent.
-  const senderPubkey = fill32("hypersettle-frontend-sender");
+  const { publicKey, connected } = useWallet();
+  const senderPubkey = publicKey
+    ? new Uint8Array(publicKey.toBytes())
+    : fill32("hypersettle-frontend-sender");
 
   async function runDkg() {
     setError(null);
@@ -112,6 +113,12 @@ export function IkaPanel() {
       <div className="kv" style={{ marginBottom: 12 }}>
         <div className="k">endpoint</div>
         <div>{IKA_ENDPOINT}</div>
+        <div className="k">sender</div>
+        <div>
+          {connected
+            ? `${publicKey?.toBase58()} (Phantom)`
+            : "demo stub — connect a Solana wallet to use your real pubkey"}
+        </div>
         <div className="k">phase</div>
         <div className={phase === "error" ? "err" : phase === "sign-done" ? "ok" : ""}>
           {phase}
