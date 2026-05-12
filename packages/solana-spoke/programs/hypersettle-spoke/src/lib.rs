@@ -10,7 +10,7 @@ pub use constants::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("4YbN6dZNNgvRDnYtASGyto69S1gxJB5mZnFS1tpvDHGw");
+declare_id!("6drKZi99yGyamt24HAYcsVh9KvqyqbjMNcPCkSzQiRQN");
 
 #[program]
 pub mod hypersettle_spoke {
