@@ -9,10 +9,10 @@ type ChainKind = "evm" | "solana" | "none";
 
 const NAV: { href: string; label: string; chain: ChainKind }[] = [
   { href: "/", label: "Overview", chain: "none" },
-  { href: "/deposit", label: "Deposit", chain: "evm" },
-  { href: "/invoice", label: "Invoice", chain: "evm" },
-  { href: "/settle", label: "EVM Settle", chain: "evm" },
-  { href: "/ika", label: "Ika dWallet", chain: "solana" },
+  { href: "/deposit", label: "Fund Intent", chain: "evm" },
+  { href: "/settle", label: "Settle", chain: "evm" },
+  { href: "/netting", label: "Netting Demo", chain: "none" },
+  { href: "/ika", label: "Ika Wallets", chain: "solana" },
 ];
 
 // The Solana WalletMultiButton imports indexedDB at module top-level. Avoid
@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>
             <h1>HyperSettle</h1>
           </Link>
-          <div className="tag">Encrypted netting · Encrypt FHE · Ika dWallets</div>
+          <div className="tag">Private intent matching with Ika-signed settlement</div>
         </div>
 
         <nav className="nav">
@@ -66,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {children}
 
       <footer>
-        Status: pre-alpha demo · EVM connect via RainbowKit · Solana connect via wallet-adapter (Phantom).
+        Pre-alpha demo. Fund USDC into a spoke, then settle the funded intent with an Ika dWallet signature.
       </footer>
     </main>
   );
