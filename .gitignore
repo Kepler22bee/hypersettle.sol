@@ -30,3 +30,10 @@ dist/
 .env
 .env.local
 .env.*.local
+.netting-testnet/
+
+# Pitch deck (kept local, not committed)
+PITCH.md
+pitch.html
+scripts/build-pitch-pptx.py
+pitch.pptx
