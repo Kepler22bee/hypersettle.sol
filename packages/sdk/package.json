@@ -8,14 +8,30 @@
   "scripts": {
     "build": "tsc",
     "demo": "tsx demo/end-to-end.ts",
+    "demo:netting": "tsx demo/netting/index.ts",
+    "demo:netting:testnet:init": "tsx demo/netting-testnet/init-keys.ts",
+    "demo:netting:testnet:deploy:evm": "tsx demo/netting-testnet/deploy-evm.ts",
+    "demo:netting:testnet:deploy:sol": "tsx demo/netting-testnet/deploy-sol.ts",
+    "demo:netting:testnet": "tsx demo/netting-testnet/run.ts",
+    "demo:netting:testnet:settle-server": "tsx demo/netting-testnet/settle-server.ts",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@ika.xyz/pre-alpha-solana-client": "^0.1.1",
+    "@mysten/bcs": "^2.0.0",
+    "@protobuf-ts/grpcweb-transport": "^2.11.0",
+    "@protobuf-ts/runtime": "^2.11.0",
+    "@protobuf-ts/runtime-rpc": "^2.11.0",
+    "@solana/kit": "^6.4.0",
     "viem": "^2.21.0"
   },
   "devDependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
+    "@solana/spl-token": "^0.4.8",
+    "@solana/web3.js": "^1.98.0",
     "@types/node": "^20.11.0",
     "tsx": "^4.19.0",
+    "tweetnacl": "^1.0.3",
     "typescript": "^5.4.0"
   }
 }

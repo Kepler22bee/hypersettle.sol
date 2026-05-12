@@ -10,8 +10,16 @@
     "spoke:sol:test": "pnpm --filter ./packages/solana-spoke exec anchor test",
     "spoke:evm:build": "forge build --root packages/evm-spoke",
     "spoke:evm:test": "forge test --root packages/evm-spoke",
+    "spoke:evm:deploy:base-sepolia": "forge script packages/evm-spoke/script/DeploySpoke.s.sol:DeploySpoke --root packages/evm-spoke --rpc-url https://sepolia.base.org --broadcast",
+    "spoke:evm:deploy:arbitrum-sepolia": "forge script packages/evm-spoke/script/DeploySpoke.s.sol:DeploySpoke --root packages/evm-spoke --rpc-url https://sepolia-rollup.arbitrum.io/rpc --broadcast",
     "sdk:build": "pnpm --filter ./packages/sdk build",
     "demo": "pnpm --filter ./packages/sdk demo",
+    "demo:netting": "pnpm --filter ./packages/sdk demo:netting",
+    "demo:netting:testnet:init": "pnpm --filter ./packages/sdk demo:netting:testnet:init",
+    "demo:netting:testnet:deploy:evm": "pnpm --filter ./packages/sdk demo:netting:testnet:deploy:evm",
+    "demo:netting:testnet:deploy:sol": "pnpm --filter ./packages/sdk demo:netting:testnet:deploy:sol",
+    "demo:netting:testnet": "pnpm --filter ./packages/sdk demo:netting:testnet",
+    "settle-server": "pnpm --filter ./packages/sdk demo:netting:testnet:settle-server",
     "frontend:dev": "pnpm --filter ./packages/frontend dev",
     "frontend:build": "pnpm --filter ./packages/frontend build"
   }
